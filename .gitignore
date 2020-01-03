@@ -1,0 +1,8 @@
+sounds/
+sprites/
+backgrounds/
+music/
+venv/
+.idea
+*.pyc
+__pycache__/
