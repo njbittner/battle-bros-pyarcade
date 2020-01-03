@@ -44,6 +44,8 @@ LOSE_TIME = 100
 PROJECT_ROOT = os.path.dirname(__file__)
 SPRITES_ROOT = os.path.join(PROJECT_ROOT, "sprites")
 SOUND_ROOT = os.path.join(PROJECT_ROOT, "sounds")
+MUSIC_ROOT = os.path.join(PROJECT_ROOT, "music")
+BACKGROUND_IMG_ROOT = os.path.join(PROJECT_ROOT, "backgrounds")
 
 
 # COUNTDOWN TIMER

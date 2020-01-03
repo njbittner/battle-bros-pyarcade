@@ -36,7 +36,7 @@ class FightView(arcade.View):
         self.winner = None
 
         # background images
-        bg_images = glob.glob("/home/potato/PycharmProjects/brogame/backgrounds/*.jpeg")
+        bg_images = glob.glob(os.path.join(BACKGROUND_IMG_ROOT, "*.jpeg"))
         bg_image = random.choice(bg_images)
         self.background_texture = arcade.load_texture(bg_image)
 
@@ -45,7 +45,7 @@ class FightView(arcade.View):
 
         # background music
         self.enable_bg = True
-        songs = glob.glob("/home/potato/PycharmProjects/brogame/music/*.wav")
+        songs = glob.glob(os.path.join(MUSIC_ROOT, "*.wav"))
         bg_song = random.choice(songs)
         self.background_music = arcade.load_sound(bg_song)
         if self.enable_bg:
@@ -101,7 +101,6 @@ class FightView(arcade.View):
                     self.player1.hit_update(self.player2)
 
     def on_draw(self):
-        """ Called whenever we need to draw the window. """
         arcade.start_render()
 
         # Draw background

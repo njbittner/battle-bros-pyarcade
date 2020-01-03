@@ -3,7 +3,7 @@ import glob
 from constants import CHARACTER_SCALING
 
 """
-[ ] Animations can either repeat or hold.
+[x] Animations can either repeat or hold.
 """
 
 def load_texture_pair(filename):
