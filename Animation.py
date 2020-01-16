@@ -28,7 +28,7 @@ class Animation(object):
         self.check = self.frame_count * self.step
         self.repeats = repeats
 
-    def get_frame(self, index_count: int, direction: int=0):
+    def get_frame(self, index_count: int, direction: int = 0):
         if index_count > self.check-1 and not self.repeats:
             return self.textures[-1][direction]
         else:

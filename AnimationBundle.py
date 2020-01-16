@@ -2,6 +2,7 @@ import glob
 from Animation import Animation
 import random
 from constants import *
+import pickle
 
 """
 character
@@ -33,10 +34,14 @@ ACTIVITY_PARAMS = {
     'start': (START_TIME, False)
 }
 
-from constants import SPRITES_ROOT
+from constants import SPRITES_ROOT, SPRITES_CACHE_DIR
 
 
 def build_animations_registry(character):
+    character_registry_cache_path = os.path.join(SPRITES_CACHE_DIR, character)
+    if os.path.exists(character_registry_cache_path):
+        with open(character_registry_cache_path, 'rb') as fin:
+            return pickle.load(fin)
     character_dir = SPRITES_ROOT + "/" + character
     animations_registry = {}
     # Combations
@@ -49,7 +54,8 @@ def build_animations_registry(character):
     animations_registry['win'] = ActivityAnimationBundle(character_dir + '/end', 'win')
     animations_registry['lose'] = ActivityAnimationBundle(character_dir+'/end', 'lose')
     animations_registry['start'] = ActivityAnimationBundle(character_dir, 'start')
-    print(animations_registry)
+    with open(character_registry_cache_path, 'wb') as fout:
+        pickle.dump(animations_registry, fout)
     return animations_registry
 
 

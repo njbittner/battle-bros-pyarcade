@@ -46,6 +46,10 @@ SPRITES_ROOT = os.path.join(PROJECT_ROOT, "sprites")
 SOUND_ROOT = os.path.join(PROJECT_ROOT, "sounds")
 MUSIC_ROOT = os.path.join(PROJECT_ROOT, "music")
 BACKGROUND_IMG_ROOT = os.path.join(PROJECT_ROOT, "backgrounds")
+SPRITES_CACHE_DIR = os.path.join(PROJECT_ROOT, '.sprites_cache')
+
+if not os.path.exists(SPRITES_CACHE_DIR):
+    os.mkdir(SPRITES_CACHE_DIR)
 
 
 # COUNTDOWN TIMER
