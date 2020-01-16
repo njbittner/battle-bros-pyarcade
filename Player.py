@@ -35,20 +35,23 @@ class Player(object):
     Health
     Attack_timer = -1
     """
-    def __init__(self, center_x, center_y, width, height, playerIdx, character='nate'):
+    def __init__(self, center_x: int, center_y: int, width: int, height: int, player_idx: int, character='nate'):
         self.center_x = center_x
         self.center_y = center_y
-        self.change_x = 0
         self.change_y = 0
         self.height = height
         self.width = width
-        self.playerIdx = playerIdx
-        self.keymap = PLAYER_KEYMAPS[playerIdx]
-        self.color = PLAYER_COLORS[playerIdx]
+        self.playerIdx = player_idx
+        self.keymap = PLAYER_KEYMAPS[player_idx]
+        self.color = PLAYER_COLORS[player_idx]
         self.health = 100
         self.level_state = LevelStates.medium
         self.character_face_direction = self.playerIdx  # TODO
         self.game_over = False
+
+        # Movement
+        self.left_down = False
+        self.right_down = False
 
         # Counters
         self.block_counter = 0
@@ -78,30 +81,35 @@ class Player(object):
     def alive(self):
         return self.health > 0
 
+    def _reset_counters(self):
+        self.block_counter = 0
+        self.cur_texture_counter = 0
+        self.attack_counter = 0
+        self.hit_counter = 0
+
     def on_keypress(self, key, modifiers):
         # blocking pre-empts everything else. If you are blocking you can't start attacking
         # if you are attacking and you press block, you stop attacking.
         if key == self.keymap['BLOCK']:
-            self.attack_counter = 0
+            self._reset_counters()
             self.block_counter = BLOCK_TOTAL_TIME
         # pressing up causes a jump
         if key == self.keymap['UP'] and self.center_y <= Y_BASELINE + JUMP_FUDGE:
+            self._reset_counters()
             self.change_y = JUMP_SPEED
-            self.block_counter = 0
             sound.play_sound(self.jump_sound)
         # down key causes crouching, if not already in the air
         elif key == self.keymap['DOWN']:
+            self._reset_counters()
             self.level_state = LevelStates.low
 
-        # you can be moving left and right no matter what.
-        elif key == self.keymap['LEFT']:
-            self.change_x -= MOVEMENT_SPEED
-            self.block_counter = 0
-        elif key == self.keymap['RIGHT']:
-            self.change_x += MOVEMENT_SPEED
-            self.block_counter = 0
+        # you can be moving left and right no matter what, except when blocking
+        elif key == self.keymap['LEFT'] and not self.block_counter:
+            self.left_down = True
+        elif key == self.keymap['RIGHT'] and not self.block_counter:
+            self.right_down = True
 
-        # start an attack if one is not already in progress and you aren't blocking
+        # can start an attack if one is not already in progress and you aren't blocking
         elif key == self.keymap['ATTACK'] and not self.attack_counter and not self.block_counter:
             self.attack_counter = ATTACK_TIME
 
@@ -109,11 +117,22 @@ class Player(object):
         if key == self.keymap['DOWN']:
             self.level_state = LevelStates.medium
         elif key == self.keymap['LEFT']:
-            self.change_x += MOVEMENT_SPEED
+            self.left_down = False
         elif key == self.keymap['RIGHT']:
-            self.change_x -= MOVEMENT_SPEED
+            self.right_down = False
         elif key == self.keymap['BLOCK']:
             self.block_counter = 0
+
+    @property
+    def change_x(self):
+        if self.right_down:
+            if self.left_down:
+                return 0
+            else:
+                return MOVEMENT_SPEED
+        elif self.left_down:
+            return -1 * MOVEMENT_SPEED
+        return 0
 
     def update_initial(self, dir):
         if dir:
@@ -127,7 +146,7 @@ class Player(object):
             else:
                 self.character_face_direction = 1
         # Move the player
-        if self.alive:
+        if self.alive and not self.game_over:
             self.center_x += self.change_x
             # See if the player hit the edge of the screen. If so, change direction
             if self.center_x < self.width:
@@ -218,10 +237,10 @@ class Player(object):
                 action_state = 'hit'
             elif self.block_counter:
                 action_state = 'block'
-            elif self.change_x !=0:
-                action_state = 'movement'
             elif self.attack_counter:
                 action_state = "attack"
+            elif self.change_x !=0:
+                action_state = 'movement'
             else:
                 action_state = 'idle'
 
