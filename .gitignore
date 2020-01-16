@@ -6,3 +6,5 @@ venv/
 .idea
 *.pyc
 __pycache__/
+.sprites_cache
+*.DS_STORE
