@@ -7,11 +7,6 @@ import glob
 
 class FightView(arcade.View):
     def __init__(self, window):
-        """
-        :param width: Width of Window
-        :param height:  Height of window
-        :param title:  Title of game
-        """
         super().__init__()
 
         self.window = window

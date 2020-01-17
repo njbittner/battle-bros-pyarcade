@@ -15,9 +15,9 @@ class IntroView(arcade.View):
         arcade.start_render()
         arcade.set_background_color(arcade.color.SLATE_GRAY)
         color =  COLORS[(self.idx // 80) % 2]
-        arcade.draw_text("Brotal Combat", self.window.width/2, self.window.height/2,
+        arcade.draw_text("Battle Bros", self.window.width/2, self.window.height/2,
                      color, font_size=50, anchor_x="center")
-        arcade.draw_text("Click to advance", self.window.width/2, self.window.height/2-75,
+        arcade.draw_text("Click to begin...", self.window.width/2, self.window.height/2-75,
                      arcade.color.WHITE, font_size=20, anchor_x="center")
 
     def on_mouse_press(self, _x, _y, _button, _modifiers):
