@@ -6,15 +6,14 @@ import glob
 
 
 class FightView(arcade.View):
-    def __init__(self, window):
+    def __init__(self, window, player1, player2):
         super().__init__()
 
         self.window = window
         self.window.set_mouse_visible(False)
 
-        # Create our players
-        self.player1 = Player(int(1/8 * SCREEN_WIDTH), Y_BASELINE, BOX_WIDTH, BOX_HEIGHT, 0, character='nate')
-        self.player2 = Player(int(7/8 * SCREEN_WIDTH), Y_BASELINE, BOX_WIDTH, BOX_HEIGHT, 1, character='nate')
+        self.player1 = player1
+        self.player2 = player2
 
         # endgame
         self.winner = None
@@ -90,7 +89,7 @@ class FightView(arcade.View):
 
         # Draw countdown timer
         if self.countdown_counter > TICKS_PER_COUNTDOWN:
-            arcade.draw_text(f"{self.countdown_values[(self.countdown_counter-TICKS_PER_COUNTDOWN) // TICKS_PER_COUNTDOWN]}", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
+            arcade.draw_text(f"{self.countdown_values[(self.countdown_counter-TICKS_PER_COUNTDOWN-1) // TICKS_PER_COUNTDOWN]}", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
                              arcade.color.RED, font_size=120, anchor_x="center", font_name="Utopia", bold=True)
         # Draw "Fight" message
         elif self.countdown_counter:

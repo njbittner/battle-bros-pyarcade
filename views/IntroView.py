@@ -1,5 +1,5 @@
 import arcade
-from views.FightView import FightView
+from views.LoadingView import LoadingView
 import pyglet
 
 COLORS = [arcade.color.BLACK, arcade.color.RED_BROWN]
@@ -21,8 +21,8 @@ class IntroView(arcade.View):
                      arcade.color.WHITE, font_size=20, anchor_x="center")
 
     def on_mouse_press(self, _x, _y, _button, _modifiers):
-        instructions_view = FightView(self.window)
-        self.window.show_view(instructions_view)
+        loading_view = LoadingView(self.window)
+        self.window.show_view(loading_view)
 
 
 
