@@ -71,10 +71,10 @@ class Player(object):
         self.character = character
 
         # sounds
-        self.hit_sound = sound.load_sound(os.path.join(SOUND_ROOT, "default/hit/hit.wav"))
+        self.hit_sound = sound.load_sound(os.path.join(SOUND_ROOT, "default/hit/hit1.wav"))
         self.block_sound = sound.load_sound(os.path.join(SOUND_ROOT, "default/block/block.wav"))
-        self.miss_sound = sound.load_sound(os.path.join(SOUND_ROOT, "default/miss/miss.wav"))
-        self.jump_sound = sound.load_sound(os.path.join(SOUND_ROOT, "default/jump/jump.wav"))
+        self.miss_sound = sound.load_sound(os.path.join(SOUND_ROOT, "default/miss/swoosh-43.wav"))
+        self.jump_sound = sound.load_sound(os.path.join(SOUND_ROOT, "default/jump/SFX_Jump_50.wav"))
 
 
     @property

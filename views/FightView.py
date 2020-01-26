@@ -19,7 +19,7 @@ class FightView(arcade.View):
         self.winner = None
 
         # background images
-        bg_images = glob.glob(os.path.join(BACKGROUND_IMG_ROOT, "*.jpeg"))
+        bg_images = glob.glob(os.path.join(BACKGROUND_IMG_ROOT, "*.png"))
         bg_image = random.choice(bg_images)
         self.background_texture = arcade.load_texture(bg_image)
 
