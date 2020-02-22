@@ -6,7 +6,7 @@ Mortal Kombat-like game written with the arcade library.
 
 
 ## Installation
-If you already have arcade working, then this should work out of the box. I didn't use any non standard libraries. Or maybe I did. I'm too lazy to look. You'll figure it out, champ.
+If you already have arcade working, then this should work out of the box. I didn't use any non standard libraries.
 
 ```
 python main.py
