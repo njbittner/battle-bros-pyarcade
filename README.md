@@ -1,4 +1,4 @@
-# brortal-kombat
+# Battle Bros (Pyarcade)
 Mortal Kombat-like game written with the arcade library.
 
 ![There's supposed to be a gif here](./battlebros.gif)
