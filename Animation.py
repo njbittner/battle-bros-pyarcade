@@ -11,8 +11,8 @@ def load_texture_pair(filename):
     Load a texture pair, with the second being a mirror image.
     """
     return [
-        arcade.load_texture(filename, scale=CHARACTER_SCALING),
-        arcade.load_texture(filename, scale=CHARACTER_SCALING, mirrored=True)
+        arcade.load_texture(filename),
+        arcade.load_texture(filename, mirrored=True)
     ]
 
 
